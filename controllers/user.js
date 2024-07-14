@@ -1,6 +1,8 @@
+const bcrypt = require('bcryptjs');
+
 const User = require('../models/user_model');
 
-async function signin(req, res) {
+async function signIn(req, res) {
   try {
     const user = await User.findOne({
       email: req.body.email,
@@ -19,7 +21,7 @@ async function signin(req, res) {
   }
 }
 
-async function signup(req, res) {
+async function signUp(req, res) {
   try {
     console.log(req.body);
     const query = User.where({ email: req.body.email });
@@ -34,14 +36,6 @@ async function signup(req, res) {
         password: req.body.password,
         firstName: req.body.firstName,
         lastName: req.body.firstName,
-        role: req.body.role,
-        address: req.body.address,
-        phNumber: req.body.phNumber,
-        expertise: req.body.expertise,
-        businessAddress: req.body.businessAddress,
-        hourlyRate: req.body.hourlyRate,
-        profilePicture: req.body.profilePicture,
-        certificate: req.body.certificate,
       });
       const savedUser = await newUser.save();
       console.log(savedUser);
@@ -50,18 +44,6 @@ async function signup(req, res) {
   } catch (err) {
     console.error(err);
     res.status(500).json(err);
-  }
-}
-
-// Get all user
-async function getUsersByRole(req, res) {
-  try {
-    console.log(req.params.role);
-
-    const users = await User.where({ role: req.params.role });
-    res.json(users);
-  } catch (err) {
-    res.status(500).json({ error: err.message });
   }
 }
 
@@ -91,10 +73,10 @@ async function getUser(req, res) {
     res.status(500).json({ error: err.message });
   }
 }
+
 module.exports = {
-  signin,
-  signup,
-  getUsersByRole,
+  signIn,
+  signUp,
   putUser,
   getUser,
 };

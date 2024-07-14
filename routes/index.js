@@ -1,7 +1,8 @@
+const express = require('express');
 const { setupUserRoutes } = require('./user');
 
-const setupApiRoutes = (app) => {
-    setupUserRoutes(app);
-}
+const router = express.Router();
 
-module.exports = { setupApiRoutes }
+setupUserRoutes(router);
+
+module.exports = router

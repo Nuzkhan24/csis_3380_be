@@ -1,10 +1,8 @@
 const app = require('express')();
 
 const { configApp } = require('./config');
-const { setupApiRoutes } = require('./routes');
 
 configApp(app);
-setupApiRoutes(app);
 
 app.get('/', (req, res) => {
   res.send({

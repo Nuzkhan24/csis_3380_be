@@ -1,15 +1,13 @@
-const UserController = require('../../controllers/user_controller');
+const userController = require('../../controllers/user');
 
-const setupUserRoutes = (app) => {
-    app.post('/api/signup', UserController.signup);
+const setupUserRoutes = (router) => {
+  router.post('/api/signIn', userController.signIn);
 
-    app.post('/api/login', UserController.signin);
-    
-    app.get('/api/users/:id', UserController.getUser);
-    
-    app.get('/api/users/role/:role', UserController.getUsersByRole);
-    
-    app.put('/api/users/:id', UserController.putUser);    
-}
+  router.post('/api/signUp', userController.signUp);
 
-module.exports = { setupUserRoutes }
+  router.get('/api/users/:id', userController.getUser);
+
+  router.put('/api/users/:id', userController.putUser);
+};
+
+module.exports = { setupUserRoutes };
