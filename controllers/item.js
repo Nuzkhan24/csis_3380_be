@@ -92,13 +92,17 @@ async function createItem(req, res) {
 // Update a item by ID
 async function putItem(req, res) {
   try {
-    const user = await User.findByIdAndUpdate(req.params.id, req.body, {
+    const item = await Item.findByIdAndUpdate(req.params.id, {
+      currentBid: req.body.currentBid
+    } , {
       new: true,
     });
-    if (!user) {
-      return res.status(404).json({ error: 'User not found' });
+    item.bidders.push({name: req.body.user, bid: req.body.currentBid});
+    await item.save();
+    if (!item) {
+      return res.status(404).json({ error: 'item not found' });
     }
-    res.json(user);
+    res.json(item);
   } catch (err) {
     res.status(500).json({ error: err.message });
   }

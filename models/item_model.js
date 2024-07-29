@@ -6,6 +6,7 @@ const Schema = mongoose.Schema({
   imgUrl: String,
   currentBid: String,
   activeDays: String,
+  bidders: []
 });
 
 module.exports = mongoose.model('Item', Schema);
